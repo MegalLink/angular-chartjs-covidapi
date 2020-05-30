@@ -2,6 +2,6 @@
 
 [Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-chartjs-covidapi)
 #
-[See Live Porject  ⚡️](https://angular-chartjs-covidapi.stackblitz.io)
+[See Live Project  ⚡️](https://angular-chartjs-covidapi.stackblitz.io)
 
 
