@@ -1,0 +1,99 @@
+
+<h1 class=" badge-secondary text-center">{{slug|uppercase}}</h1>
+<div class="alert alert-danger" *ngIf="this.data.length==0">No hay data disponible para este país</div>
+<div class="row" *ngIf="this.data.length!=0">
+  <div class="col-lg-6">
+    <div class="container" style="display: block;" >
+    <canvas baseChart width="200" height="200"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                [plugins]="lineChartPlugins"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+  <div class="col-lg-5 m-4">
+    
+    <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="">Filtrar por fecha</span>
+  </div>
+  <input type="text" class="form-control" name="filterPost" placeholder="AAAA-MM-DD"[(ngModel)]="filterPost">
+  <button class="btn btn-sm btn-success"(click)="dataCopy.reverse()">Ordenar</button>
+</div>
+   
+<div class="flex-item m-4  " style="overflow:scroll;height:400px;">
+   
+
+
+
+   <table class="table table-responsive table-striped ">
+  <thead class="thead-dark" >
+    <tr>
+      <th  style="width:230px;" scope="col">Fecha </th>
+      <th  scope="col">Muertos</th>
+      <th  scope="col">Confirmados</th>
+      <th scope="col">Recuperados</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of data|filtrarDataTabla :filterPost:'Date'">
+      <td>{{d.Date|slice:0:10}}</td>
+      <td>{{d.Deaths}}</td>
+      <td>{{d.Confirmed}}</td>
+      <td>{{d.Recovered}}</td>
+    </tr>
+  </tbody>
+   </table>
+    </div>
+  </div> 
+   
+
+</div>
+
+<div class="row" *ngIf="listaPaises">
+     <div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="">Filtrar por País</span>
+  </div>
+  <input  type="text" class="form-control" name="filterPost" placeholder="Nombre país en ingles"[(ngModel)]="filterPais">
+ 
+</div>
+  <div class="col-lg-6">
+   <div class="flex-item m-4  " style="overflow:scroll;height:400px;">
+   
+
+
+
+   <table class="table table-responsive table-striped ">
+  <thead class="thead-dark" >
+    <tr>
+      <th   scope="col"># </th>
+      <th  scope="col">Pais</th>
+      <th  scope="col">Selecionar</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of listaPaises|filtrarDataTabla :filterPais:'Slug';index as i ">
+      <td>{{i+1}}</td>
+      <td>{{p.Country}}</td>
+      <td>
+        <button
+         class="btn btn-primary"
+        (click)="onCountrySelect(p)"
+        [ngClass]="{'btn-success': p.Slug==slug}"
+        >Seleccionar</button>
+      </td>
+  
+   
+    </tr>
+  </tbody>
+   </table>
+    </div>
+  </div>
+</div>
